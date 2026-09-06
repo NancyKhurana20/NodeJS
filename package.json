@@ -1,0 +1,20 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "My Node.js learning journey, practice programs, and backend projects.",
+  "homepage": "https://github.com/NancyKhurana20/NodeJS#readme",
+  "bugs": {
+    "url": "https://github.com/NancyKhurana20/NodeJS/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NancyKhurana20/NodeJS.git"
+  },
+  "license": "ISC",
+  "author": "Nancy",
+  "type": "commonjs",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
