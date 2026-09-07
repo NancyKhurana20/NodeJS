@@ -505,3 +505,221 @@ Error response sent to client
 - Error-handling middleware is generally placed **after routes and other middleware**
 
 ---
+
+# Cookies and Sessions
+
+---
+
+## What is a Cookie?
+
+A cookie is a small piece of data stored in the user's browser by a website.
+
+Cookies are used to remember information between different requests.
+
+Examples of information that can be stored in cookies include:
+
+- User preferences
+- Language preference
+- Theme preference
+- Session ID
+- Other small pieces of client-side information
+
+---
+
+## Why are Cookies Needed?
+
+HTTP is stateless.
+
+This means that the server does not automatically remember previous requests from the same user.
+
+Cookies allow the browser to store information and send it back to the server with future requests.
+
+---
+
+## Cookie Flow
+
+The basic flow of a cookie is:
+
+Browser sends request
+→
+Server sends a cookie
+→
+Browser stores the cookie
+→
+Browser sends the cookie with future requests
+→
+Server reads the cookie
+
+---
+
+## What is a Session?
+
+A session is information maintained by the server for a particular user's interaction with an application.
+
+A session can store information such as:
+
+- User identity
+- Login status
+- User-related temporary data
+- Other server-side information
+
+Sessions are commonly used to keep a user logged in.
+
+---
+
+## Why are Sessions Needed?
+
+HTTP is stateless, so after one request the server does not automatically know who the user is in the next request.
+
+A session allows the server to maintain information about a user across multiple requests.
+
+---
+
+## Session ID
+
+A session usually has a unique session ID.
+
+For example:
+
+Session ID: abc123
+
+The server stores session information associated with this ID.
+
+The browser commonly stores the session ID inside a cookie.
+
+---
+
+## Cookie and Session Together
+
+Cookies and sessions are often used together.
+
+The cookie stores the session ID in the browser.
+
+The actual session information is maintained by the server.
+
+For example:
+
+Browser:
+Session ID = abc123
+
+Server:
+Session abc123
+- username = Nancy
+- loggedIn = true
+
+When the browser makes another request, it sends the session ID.
+
+The server uses the session ID to find the corresponding session.
+
+---
+
+## Cookie vs Session
+
+Cookie:
+- Stored on the client/browser
+- Contains small amounts of data
+- Sent with requests to the server
+- Can store preferences or a session ID
+
+Session:
+- Maintained on the server
+- Stores user-related information
+- Commonly used for login state
+- Usually identified using a session ID
+
+---
+
+## Simple Example
+
+A user logs into a website.
+
+1. The user sends login information to the server.
+2. The server verifies the login.
+3. The server creates a session.
+4. The server generates a session ID.
+5. The session ID is sent to the browser using a cookie.
+6. The browser stores the cookie.
+7. The browser sends the cookie with future requests.
+8. The server uses the session ID to find the user's session.
+9. The server knows that the user is logged in.
+
+---
+
+## Important Difference
+
+A cookie and a session are not the same thing.
+
+Cookie:
+Information stored in the browser.
+
+Session:
+User-related information maintained by the server.
+
+A cookie can contain a session ID that allows the server to identify the correct session.
+
+---
+
+## Security
+
+Sensitive information should generally not be stored directly in cookies.
+
+Examples of sensitive information that should not be stored directly in cookies:
+
+- Passwords
+- Bank details
+- Private information
+
+Instead, applications commonly store a session ID in the cookie and keep the actual session information on the server.
+
+---
+
+## Important Cookie Security Options
+
+HttpOnly:
+Helps prevent client-side JavaScript from accessing the cookie.
+
+Secure:
+The cookie is sent only over HTTPS connections.
+
+SameSite:
+Controls when cookies can be sent with cross-site requests.
+
+Expires / Max-Age:
+Controls how long the cookie remains valid.
+
+---
+
+## Cookies and Sessions in Express
+
+Express applications can use cookies and sessions to remember users between requests.
+
+The `express-session` package is commonly used to manage sessions in Express applications.
+
+The general flow is:
+
+User logs in
+→
+Server creates a session
+→
+Session ID is stored in a cookie
+→
+Browser sends the cookie with future requests
+→
+Server identifies the session
+→
+User remains logged in
+
+---
+
+## Key Concepts
+
+- HTTP is stateless.
+- Cookies are stored in the browser.
+- Sessions are maintained by the server.
+- Cookies can store a session ID.
+- Sessions are commonly used for authentication and login state.
+- Cookies and sessions are often used together.
+- Sensitive information should not be stored directly in cookies.
+- `HttpOnly`, `Secure`, and `SameSite` are important cookie security options.
+
+---
