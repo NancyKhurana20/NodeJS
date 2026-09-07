@@ -22,6 +22,16 @@ app.get("/profile", (req, res) => {
   res.send("This is profile page");
 });
 
+app.get("/about", (req, res, next) => {
+  return next(new Error("Not implemented"));
+});
+
+//Error handling -->Error handling is the process of **detecting, handling, and responding to errors** that occur while processing a request.Express provides special middleware for handling errors.
+app.use(function (err, req, res, next) {
+  console.log(err.stack);
+  res.status(500).send("Something broke");
+});
+
 app.listen(3000, () => {
   console.log("Server is running on http://localhost:3000");
 });

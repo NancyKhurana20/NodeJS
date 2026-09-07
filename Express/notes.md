@@ -379,3 +379,129 @@ Middleware can validate incoming data before passing the request to the route ha
 - **`app.use()`** → Used to register middleware
 - **Middleware order** → Determines the order in which middleware executes
 - Middleware can **process a request, pass it forward, or send a response**
+
+
+---
+
+# Error Handling in Express.js
+
+## What is Error Handling?
+
+Error handling is the process of **detecting, handling, and responding to errors** that occur while processing a request.
+
+Express provides special middleware for handling errors.
+
+---
+
+## Error-Handling Middleware
+
+Error-handling middleware is a special type of middleware that has **four parameters**:
+
+- `err` → Contains information about the error
+- `req` → Contains information about the incoming request
+- `res` → Used to send a response
+- `next` → Passes control to the next middleware
+
+The presence of four parameters tells Express that the middleware is an **error-handling middleware**.
+
+---
+
+## `next()` vs `next(error)`
+
+### `next()`
+
+`next()` passes control to the next middleware or route.
+
+It indicates that there is no error in the current middleware.
+
+---
+
+### `next(error)`
+
+`next(error)` tells Express that an error has occurred.
+
+Express then skips the normal middleware and routes and passes the error to the appropriate error-handling middleware.
+
+---
+
+## Creating an Error
+
+An error can be created using the `Error` object.
+
+The error can then be passed to Express using `next()`.
+
+This allows the error-handling middleware to process the error.
+
+---
+
+## Error Status Code
+
+A common status code used for server-side errors is:
+
+**500 — Internal Server Error**
+
+It indicates that the server encountered an unexpected problem while processing the request.
+
+---
+
+## Error Stack
+
+The `err.stack` property contains information about the error along with the stack trace.
+
+It can be useful for debugging and finding where the error occurred.
+
+The error stack is generally logged on the server rather than sent directly to the client.
+
+---
+
+## Position of Error-Handling Middleware
+
+Error-handling middleware is generally placed **after the routes and other middleware**.
+
+This allows errors passed from earlier middleware or routes to reach the error handler.
+
+---
+
+## Error Handling Flow
+
+Request
+
+↓
+
+Middleware
+
+↓
+
+Route
+
+↓
+
+Error occurs
+
+↓
+
+`next(error)`
+
+↓
+
+Error-handling middleware
+
+↓
+
+Error response sent to client
+
+---
+
+## Important Concepts Learned
+
+- **Error handling** → Managing errors that occur during request processing
+- **Error-handling middleware** → Special middleware used to handle errors
+- **`err`** → Contains error information
+- **`next()`** → Passes control normally
+- **`next(error)`** → Passes an error to the error handler
+- **`err.stack`** → Provides the error stack trace
+- **Status `500`** → Internal Server Error
+- Error-handling middleware has **four parameters**
+- Error-handling middleware is generally placed **after routes and other middleware**
+
+---
