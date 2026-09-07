@@ -2,6 +2,9 @@ import express from "express";
 
 const app = express();
 
+app.use(express.json()); //Used when the client sends JSON data.
+app.use(express.urlencoded({ extended: true })); //Used mainly for data submitted through HTML forms.
+
 //Middleware --> Middleware is a function that runs between the incoming request and the final response.
 app.use(function (req, res, next) {
   console.log("Server acceeepted the request and sent to middleware");

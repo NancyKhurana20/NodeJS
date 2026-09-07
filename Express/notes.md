@@ -723,3 +723,35 @@ User remains logged in
 - `HttpOnly`, `Secure`, and `SameSite` are important cookie security options.
 
 ---
+
+# Express Request Body Middleware
+
+---
+
+## express.json()
+
+`express.json()` is middleware that allows Express to read data sent in JSON format.
+
+The parsed data is available through:
+
+`req.body`
+
+---
+
+## express.urlencoded()
+
+`express.urlencoded()` is middleware that allows Express to read data sent from HTML forms.
+
+The parsed data is available through:
+
+`req.body`
+
+---
+
+## Key Concept
+
+- `express.json()` → handles JSON data
+- `express.urlencoded()` → handles form data
+- Both make the data available through `req.body`
+
+---
