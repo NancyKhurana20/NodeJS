@@ -204,3 +204,178 @@ Response is sent to the client
 - **Port** → Communication endpoint used by the server
 
 ---
+
+# Middleware in Express.js
+
+---
+
+## What is Middleware?
+
+Middleware is a function that executes **between receiving a request and sending the final response**.
+
+It has access to:
+
+- The request object (`req`)
+- The response object (`res`)
+- The `next` function
+
+Middleware can perform tasks before passing the request to the next middleware or route.
+
+---
+
+## Purpose of Middleware
+
+Middleware is commonly used for:
+
+- Logging requests
+- Authentication
+- Authorization
+- Validating data
+- Processing request data
+- Handling errors
+- Modifying request or response objects
+- Performing other common operations before a request reaches a route
+
+---
+
+## `req`, `res`, and `next`
+
+### `req` — Request
+
+The `req` object contains information about the incoming request.
+
+It can contain information such as:
+
+- URL
+- HTTP method
+- Headers
+- Request data
+
+---
+
+### `res` — Response
+
+The `res` object is used to send a response back to the client.
+
+---
+
+### `next`
+
+`next` is a function used to pass control to the **next middleware or route handler**.
+
+Calling `next()` tells Express that the current middleware has completed its task and the request can continue.
+
+---
+
+## `app.use()`
+
+`app.use()` is commonly used to register middleware in an Express application.
+
+Middleware registered using `app.use()` can run for incoming requests before the appropriate route is executed.
+
+---
+
+## Middleware Flow
+
+The general flow of an Express request is:
+
+Request
+
+↓
+
+Middleware
+
+↓
+
+Next Middleware
+
+↓
+
+Route Handler
+
+↓
+
+Response
+
+A middleware can either:
+
+- Pass control using `next()`
+- Send a response and end the request
+
+---
+
+## Using `next()`
+
+If a middleware does not send a response, it generally needs to call `next()` so that the request can continue.
+
+If `next()` is not called and no response is sent, the request may remain pending and the client may continue waiting.
+
+---
+
+## Order of Middleware
+
+The **order in which middleware is defined matters**.
+
+Express processes middleware and routes in the order in which they appear in the application.
+
+For example:
+
+Middleware 1
+
+↓
+
+Middleware 2
+
+↓
+
+Route
+
+Therefore, middleware placed before a route can execute before that route.
+
+---
+
+## Middleware and Routing
+
+Middleware and routes have different purposes.
+
+**Middleware** performs operations during the request-response cycle and can pass control to another function.
+
+**Routes** define how the application responds to a particular URL and HTTP method.
+
+---
+
+## Common Uses of Middleware
+
+### Logging
+
+Middleware can record information about incoming requests, such as the HTTP method and requested URL.
+
+---
+
+### Authentication
+
+Middleware can check whether a user is authenticated before allowing access to protected routes.
+
+---
+
+### Authorization
+
+Middleware can check whether a user has permission to perform a particular operation.
+
+---
+
+### Validation
+
+Middleware can validate incoming data before passing the request to the route handler.
+
+---
+
+## Important Concepts Learned
+
+- **Middleware** → Function that runs during the request-response cycle
+- **`req`** → Contains information about the incoming request
+- **`res`** → Used to send a response
+- **`next()`** → Passes control to the next middleware or route
+- **`app.use()`** → Used to register middleware
+- **Middleware order** → Determines the order in which middleware executes
+- Middleware can **process a request, pass it forward, or send a response**
