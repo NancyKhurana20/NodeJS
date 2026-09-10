@@ -29,6 +29,13 @@ app.get("/about", (req, res, next) => {
   return next(new Error("Not implemented"));
 });
 
+//dynamic routing --> whenever we need the route which will change dynamically we will add colon (:) to that part which is going to change
+app.get("/profile/:username", (req, res) => {
+  //first we enter the url in the frontend and send it here to backend
+  //console.log(req.params); //this contains the object  { username: 'nancy' }
+  res.send(`Welcome ${req.params.username}`); //this will print welcome nancy  //then the backend returns it to the frontend
+});
+
 //Error handling -->Error handling is the process of **detecting, handling, and responding to errors** that occur while processing a request.Express provides special middleware for handling errors.
 app.use(function (err, req, res, next) {
   console.log(err.stack);
