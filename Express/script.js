@@ -1,6 +1,9 @@
-import express from "express";
+const express = require("express");
 
 const app = express();
+
+//for static files
+const path = require("path");
 
 app.use(express.json()); //Used when the client sends JSON data.
 app.use(express.urlencoded({ extended: true })); //Used mainly for data submitted through HTML forms.
@@ -9,6 +12,9 @@ app.use(express.urlencoded({ extended: true })); //Used mainly for data submitte
 //first we need to install ejs using npm i ejs
 app.set("view engine", "ejs"); //now by this the app will use the ejs file as an view engine , then at the routing part we will mention res.render('ejs file name') , for creating the ejs file we will first make a folder named views then inside it we will create the ejs file
 
+//Adding static files
+app.use(express.static(path.join(__dirname, "public")));
+//console.log(__dirname); //this gives the path of your current folder in which you are working and then in app.use we added the public so then it will direct us to the public folder in which the static files are present
 //Middleware --> Middleware is a function that runs between the incoming request and the final response.
 app.use(function (req, res, next) {
   console.log("Server acceeepted the request and sent to middleware");

@@ -1,7 +1,6 @@
 {
   "name": "nodejs",
   "version": "1.0.0",
-  "type": "module",
   "description": "My Node.js learning journey, practice programs, and backend projects.",
   "homepage": "https://github.com/NancyKhurana20/NodeJS#readme",
   "bugs": {
