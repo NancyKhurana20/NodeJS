@@ -2,6 +2,11 @@ const express = require("express");
 
 const app = express();
 
+// Easy rule to remember:
+
+// require() → CommonJS
+// import → Module/ESM
+
 //for static files
 const path = require("path");
 
