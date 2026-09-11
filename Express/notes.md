@@ -755,3 +755,111 @@ The parsed data is available through:
 - Both make the data available through `req.body`
 
 ---
+# Express Recent Concepts
+
+---
+
+## Dynamic Routing
+
+Dynamic routing is used when a part of the URL needs to change dynamically.
+
+A colon `:` is used to define a dynamic route parameter.
+
+The value can be accessed using `req.params`.
+
+Example concept:
+
+`/profile/:username`
+
+If the URL is `/profile/nancy`, the username can be accessed through `req.params.username`.
+
+---
+
+## EJS
+
+EJS (Embedded JavaScript Templates) is a template engine used with Express.
+
+It is similar to HTML, but it allows us to add dynamic data and JavaScript logic inside HTML.
+
+EJS files use the `.ejs` extension.
+
+EJS is commonly used to create dynamic HTML pages on the server.
+
+---
+
+## EJS View Engine
+
+Express can be configured to use EJS as its view engine.
+
+Once EJS is set as the view engine, Express can render EJS files using `res.render()`.
+
+EJS files are commonly stored inside a `views` folder.
+
+---
+
+## EJS Dynamic Expression
+
+EJS allows dynamic values to be inserted into HTML using:
+
+`<%= %>`
+
+It evaluates the expression and displays the result in the HTML.
+
+EJS comments can be written using:
+
+`<%# %>`
+
+---
+
+## Static Files
+
+Static files are files that are served directly to the browser without being dynamically generated.
+
+Common static files include:
+
+- CSS
+- JavaScript
+- Images
+- Fonts
+
+Express provides `express.static()` middleware to serve static files.
+
+---
+
+## Public Folder
+
+A `public` folder is commonly used to store static files.
+
+The `express.static()` middleware makes the files inside the `public` folder accessible to the browser.
+
+For example:
+
+`public/style/style.css`
+
+can be accessed through:
+
+`/style/style.css`
+
+---
+
+## Connecting Static Files with EJS
+
+Static files such as CSS can be connected to an EJS page using the HTML `<link>` tag.
+
+The browser requests the CSS file, and Express serves it from the `public` folder.
+
+---
+
+## Key Concepts
+
+- Dynamic routing → allows changing values in URLs.
+- `req.params` → accesses dynamic route parameters.
+- EJS → creates dynamic HTML pages.
+- `res.render()` → renders an EJS file.
+- `views` → commonly stores EJS files.
+- `public` → commonly stores static files.
+- `express.static()` → serves static files.
+- `<%= %>` → displays dynamic values in EJS.
+- `<%# %>` → EJS comment.
+
+---
