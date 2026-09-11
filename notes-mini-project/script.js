@@ -17,7 +17,13 @@ app.get("/", function (req, res) {
   });
 });
 app.post("/create", function (req, res) {
-  console.log(req.body);
+  fs.writeFile(
+    `./files/${req.body.title.split(" ").join("")}.txt`,
+    req.body.details,
+    function (err) {
+      res.redirect("/");
+    },
+  );
 });
 app.listen("3001", () => {
   console.log("Server is running on http://localhost:3001");

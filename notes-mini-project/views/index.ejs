@@ -31,9 +31,9 @@
       <div class="tasks flex gap-3 flex-wrap p-10">
         <% if(files.length>0){ %>
           <% files.forEach(function(val){ %>
-            <div class="task w-72 px-3 py-4 rounded-md bg-zinc-800">
+            <div class="task min-w-72 px-3 py-4 rounded-md bg-zinc-800">
           <h1 class="text-white text-3xl tracking-tighter">
-            Some task goes here
+            <%= val %>
           </h1>
           <a href="" class="text-blue-500 inline-block mt-3">Read More</a>
         </div>
