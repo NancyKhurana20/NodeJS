@@ -34,6 +34,22 @@ app.get("/file/:filename", function (req, res) {
     },
   );
 });
+app.get("/edit/:filename", function (req, res) {
+  res.render("edit", { filename: req.params.filename });
+});
+app.post("/edit", function (req, res) {
+  fs.rename(
+    `./files/${req.body.previous}`,
+    `./files/${req.body.new}`,
+    function (err) {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("Error renaming file");
+      }
+      res.redirect("/");
+    },
+  );
+});
 app.listen("3001", () => {
   console.log("Server is running on http://localhost:3001");
 });
