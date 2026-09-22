@@ -16,6 +16,10 @@ app.get("/", function (req, res) {
   res.render("index");
 });
 
+app.get("/login", function (req, res) {
+  res.render("login");
+});
+
 app.post("/register", async function (req, res) {
   let { username, name, email, password, age } = req.body;
 
@@ -36,6 +40,18 @@ app.post("/register", async function (req, res) {
       res.cookie("token", token);
       res.send("registered");
     });
+  });
+});
+
+app.post("/login", async function (req, res) {
+  let { email, password } = req.body;
+
+  let user = await userModel.findOne({ email });
+  if (!user) return res.status(500).send("Something went wrong");
+
+  bcrypt.compare(password, user.password, function (err, result) {
+    if (result) return res.status(200).send("You can Login");
+    else res.redirect("/login");
   });
 });
 
