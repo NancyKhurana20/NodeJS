@@ -53,7 +53,7 @@ app.post("/login", async function (req, res) {
     if (result) {
       let token = jwt.sign({ email: email, userid: user._id }, "shhhh");
       res.cookie("token", token);
-      res.status(200).send("You can Login");
+      res.status(200).redirect("/profile");
     } else res.redirect("/login");
   });
 });
@@ -63,8 +63,24 @@ app.get("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-app.use("/profile", isLoggedIn, function (req, res) {
-  res.send("this is profile page");
+app.use("/profile", isLoggedIn, async function (req, res) {
+  let user = await userModel
+    .findOne({ email: req.user.email })
+    .populate("posts");
+  res.render("profile", { user });
+});
+
+app.use("/post", isLoggedIn, async function (req, res) {
+  let user = await userModel.findOne({ email: req.user.email });
+  let { content } = req.body;
+
+  let post = await postModel.create({
+    user: user._id,
+    content,
+  });
+  user.posts.push(post._id);
+  await user.save();
+  res.redirect("/profile");
 });
 
 //For creating protected routes , this is the middleware , so that we can only access any route if we are logged in
