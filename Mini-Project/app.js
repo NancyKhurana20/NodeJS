@@ -50,10 +50,31 @@ app.post("/login", async function (req, res) {
   if (!user) return res.status(500).send("Something went wrong");
 
   bcrypt.compare(password, user.password, function (err, result) {
-    if (result) return res.status(200).send("You can Login");
-    else res.redirect("/login");
+    if (result) {
+      let token = jwt.sign({ email: email, userid: user._id }, "shhhh");
+      res.cookie("token", token);
+      res.status(200).send("You can Login");
+    } else res.redirect("/login");
   });
 });
+
+app.get("/logout", (req, res) => {
+  res.cookie("token", "");
+  res.redirect("/login");
+});
+
+app.use("/profile", isLoggedIn, function (req, res) {
+  res.send("this is profile page");
+});
+
+//For creating protected routes , this is the middleware , so that we can only access any route if we are logged in
+function isLoggedIn(req, res, next) {
+  if (req.cookies.token === "") return res.redirect("/login");
+
+  let data = jwt.verify(req.cookies.token, "shhhh");
+  req.user = data;
+  next();
+}
 
 app.listen("3007", function () {
   console.log("Server running on http://localhost:3007");
