@@ -6,30 +6,33 @@ const jwt = require("jsonwebtoken");
 const userModel = require("./models/user");
 const postModel = require("./models/post");
 const ejs = require("ejs");
+const upload = require("./config/multerconfig");
+const path = require("path");
 
-const multer = require("multer");
+// const multer = require("multer");
 
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
-const crypto = require("crypto");
-const path = require("path");
+// const crypto = require("crypto");
+// const path = require("path");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./public/images/uploads");
-  },
-  filename: function (req, file, cb) {
-    crypto.randomBytes(12, function (err, bytes) {
-      const fn = bytes.toString("hex") + path.extname(file.originalname);
-      cb(null, fn);
-    });
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "./public/images/uploads");
+//   },
+//   filename: function (req, file, cb) {
+//     crypto.randomBytes(12, function (err, bytes) {
+//       const fn = bytes.toString("hex") + path.extname(file.originalname);
+//       cb(null, fn);
+//     });
+//   },
+// });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
 app.get("/", function (req, res) {
   res.render("index");
@@ -38,6 +41,22 @@ app.get("/", function (req, res) {
 app.get("/login", function (req, res) {
   res.render("login");
 });
+
+app.get("/profile/upload", function (req, res) {
+  res.render("profileupload");
+});
+
+app.post(
+  "/upload",
+  isLoggedIn,
+  upload.single("image"),
+  async function (req, res) {
+    let user = await userModel.findOne({ email: req.user.email });
+    user.profilepic = req.file.filename;
+    await user.save();
+    res.redirect("/profile");
+  },
+);
 
 app.post("/register", async function (req, res) {
   let { username, name, email, password, age } = req.body;
@@ -62,12 +81,12 @@ app.post("/register", async function (req, res) {
   });
 });
 
-app.get("/test", (req, res) => {
-  res.render("test");
-});
-app.post("/upload", upload.single("image"), (req, res) => {
-  console.log(req.file);
-});
+// app.get("/test", (req, res) => {
+//   res.render("test");
+// });
+// app.post("/upload", upload.single("image"), (req, res) => {
+//   console.log(req.file);
+// });
 
 app.post("/login", async function (req, res) {
   let { email, password } = req.body;
