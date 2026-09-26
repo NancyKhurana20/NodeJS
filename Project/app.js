@@ -23,5 +23,5 @@ app.use("/owners", ownersRouter);
 app.use("/products", productsRouter);
 
 app.listen("3009", function () {
-  console.log("Server running on http://localhost:3007");
+  console.log("Server running on http://localhost:3009");
 });
