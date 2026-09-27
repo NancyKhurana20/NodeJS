@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+require("dotenv").config();
+
 const db = require("./config/mongoose-connection");
 
 const ownersRouter = require("./routes/ownersRouter");
